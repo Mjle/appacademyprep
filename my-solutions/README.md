@@ -7,9 +7,7 @@ This is Ruby prep-work for App Academy Coding Challenge. It consists of many pro
 
 You can see some of their exercises on:
 
-[Prep work for App Academy](http://prepwork.appacademy.io/coding-test-1/practice-problems/)  
-
-[repl.it link to code](https://repl.it/)
+[Prep work for App Academy](http://prepwork.appacademy.io/coding-test-1/practice-problems/)
 
 You can code stuff by their provided repl.it link which you can run Ruby and see their outputs.
 
