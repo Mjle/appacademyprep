@@ -1,0 +1,10 @@
+If you need help running the tests, please read the README.md
+To see test results, I use Terminal. 
+We can use the following command line to see all test results:
+#
+# bundle exec rspec
+#
+OR to see single file specs
+# Ex: for 12_rpn_calculator_spec.rb
+# bundle exec rspec spec/12_rpn_calculator_spec.rb
+# 

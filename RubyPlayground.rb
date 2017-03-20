@@ -1,3 +1,5 @@
+lineWidth = 50
+puts(                'Old Mother Hubbard'.center(lineWidth)) # centers text
 a = Array.new  + [12345]  # Array  addition.
 b = String.new + 'hello'  # String addition.
 c = Time.new
