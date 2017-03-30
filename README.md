@@ -15,6 +15,9 @@ You can code stuff by their provided repl.it link which you can run Ruby and see
 
 It is optional to use Terminal (Mac OSX has pre-installed Ruby) to code.
 
+#### Homework - https://github.com/appacademy/test-first-ruby
+
+The homework essentially helped us to learn the basic of Ruby and to essentially learn Ruby.
 
 ### Notes
 Solutions are made available for anyone practicing the code. It is of course suggested to do your own code.
