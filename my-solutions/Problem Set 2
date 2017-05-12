@@ -1,0 +1,330 @@
+Problem Set 2
+# Write a function `bubble_sort(arr)` which will sort an array of
+# integers using the "bubble sort"
+# methodology. (http://en.wikipedia.org/wiki/Bubble_sort)
+#
+# Difficulty: 3/5
+
+def bubble_sort(arr)
+  sorted = false
+  until sorted
+    sorted = true
+    (arr.count - 1).times do |i|
+      if arr[i] > arr[i + 1]
+        arr[i], arr[i + 1] = arr[i + 1], arr[i]
+        sorted = false
+      end
+    end
+  end
+
+  arr
+end
+
+puts("\nTests for #bubble_sort")
+puts("===============================================")
+    puts "bubble_sort([]) == []: "  + (bubble_sort([]) == []).to_s
+    puts "bubble_sort([1]) == [1]: "  + (bubble_sort([1]) == [1]).to_s
+    puts "bubble_sort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]: "  + (bubble_sort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]).to_s
+puts("===============================================")
+
+
+# Write a function, `rec_intersection(rect1, rect2)` and returns the
+# intersection of the two.
+#
+# Rectangles are represented as a pair of coordinate-pairs: the
+# bottom-left and top-right coordinates (given in `[x, y]` notation).
+#
+# Hint: You can calculate the left-most x coordinate of the
+# intersection by taking the maximum of the left-most x coordinate of
+# each rectangle. Likewise, you can calculate the top-most y
+# coordinate of the intersection by taking the minimum of the top most
+# y coordinate of each rectangle.
+#
+# Difficulty: 4/5
+
+def rec_intersection(rect1, rect2)
+  x_min = [rect1[0][0], rect2[0][0]].max
+  x_max = [rect1[1][0], rect2[1][0]].min
+
+  y_min = [rect1[0][1], rect2[0][1]].max
+  y_max = [rect1[1][1], rect2[1][1]].min
+
+  return nil if ((x_max < x_min) || (y_max < y_min))
+  return [[x_min, y_min], [x_max, y_max]]
+end
+
+puts("\nTests for #rec_intersection")
+puts("===============================================")
+    puts "rec_intersection([[0, 0], [2, 1]], [[1, 0], [3, 1]]) == [[1, 0], [2, 1]]: "  + (rec_intersection([[0, 0], [2, 1]], [[1, 0], [3, 1]]) == [[1, 0], [2, 1]]).to_s
+    puts "rec_intersection([[1, 1], [2, 2]], [[0, 0], [5, 5]]) == [[1, 1], [2, 2]]: "  + (rec_intersection([[1, 1], [2, 2]], [[0, 0], [5, 5]]) == [[1, 1], [2, 2]]).to_s
+    puts "rec_intersection([[1, 1], [2, 2]], [[4, 4], [5, 5]]) == nil: "  + (rec_intersection([[1, 1], [2, 2]], [[4, 4], [5, 5]]) == nil).to_s
+    puts "rec_intersection([[1, 1], [5, 4]], [[2, 2], [3, 5]]) == [[2, 2], [3, 4]]: "  + (rec_intersection([[1, 1], [5, 4]], [[2, 2], [3, 5]]) == [[2, 2], [3, 4]]).to_s
+puts("===============================================")
+
+# Write a function word_unscrambler that takes two inputs: a scrambled
+# word and a dictionary of real words.  Your program must then output
+# all words that our scrambled word can unscramble to.
+#
+# Hint: To see if a string `s1` is an anagram of `s2`, split both
+# strings into arrays of letters. Sort the two arrays. If they are
+# equal, then they are anagrams.
+#
+# Difficulty: 3/5
+
+def word_unscrambler(word, dictionary)
+  s1 = word.split("").sort
+  puts s1
+  anagrams = []
+  dictionary.each do |word|
+    s2 = word.split("").sort
+    anagrams << word if s1 == s2
+  end
+  anagrams
+end
+
+puts("\nTests for #word_unscrambler")
+puts("===============================================")
+    puts "word_unscrambler(\"cat\", [\"tac\"]) == [\"tac\"]: "  + (word_unscrambler("cat", ["tac"]) == ["tac"]).to_s
+    puts "word_unscrambler(\"cat\", [\"tom\"]) == []: "  + (word_unscrambler("cat", ["tom"]) == []).to_s
+    puts "word_unscrambler(\"cat\", [\"tic\", \"toc\", \"tac\", \"toe\"]) == [\"tac\"]: "  + (word_unscrambler("cat", ["tic", "toc", "tac", "toe"]) == ["tac"]).to_s
+    puts "word_unscrambler(\"cat\", [\"scatter\", \"tac\", \"ca\"] ) == [\"tac\"]: "  + (word_unscrambler("cat", ["scatter", "tac", "ca"] ) == ["tac"]).to_s
+    puts "word_unscrambler(\"turn\", [\"numb\", \"turn\", \"runt\", \"nurt\"]) == [\"turn\", \"runt\", \"nurt\"]: "  + (word_unscrambler("turn", ["numb", "turn", "runt", "nurt"]) == ["turn", "runt", "nurt"]).to_s
+
+puts("===============================================") 
+
+# Build a function, `morse_encode(str)` that takes in a string (no
+# numbers or punctuation) and outputs the morse code for it. See
+# http://en.wikipedia.org/wiki/Morse_code. Put two spaces between
+# words and one space between letters.
+#
+# You'll have to type in morse code: I'd use a hash to map letters to
+# codes. Don't worry about numbers.
+#
+# I wrote a helper method `morse_encode_word(word)` that handled a
+# single word.
+#
+# Difficulty: 2/5
+
+MORSE_CODE = {
+  "a" => ".-",
+  "b" => "-...",
+  "c" => "-.-.",
+  "d" => "-..",
+  "e" => ".",
+  "f" => "..-.",
+  "g" => "--.",
+  "h" => "....",
+  "i" => "..",
+  "j" => ".---",
+  "k" => "-.-",
+  "l" => ".-..",
+  "m" => "--",
+  "n" => "-.",
+  "o" => "---",
+  "p" => ".--.",
+  "q" => "--.-",
+  "r" => ".-.",
+  "s" => "...",
+  "t" => "-",
+  "u" => "..-",
+  "v" => "...-",
+  "w" => ".--",
+  "x" => "-..-",
+  "y" => "-.--",
+  "z" => "--.."
+}
+
+def morse_encode(str)
+  words = str.split(" ")
+  encoded_words = words.map { |word| morse_encode_word(word) }
+  encoded_words.join("  ")
+end
+
+def morse_encode_word(word)
+  letters = word.split("")
+  codes = letters.map { |l| MORSE_CODE[l] }
+  codes.join(" ")
+end
+
+puts("\nTests for #morse_encode")
+puts("===============================================")
+    puts "morse_encode(\"q\") == \"--.-\": "  + (morse_encode("q") == "--.-").to_s
+    puts "morse_encode(\"cat\") == \"-.-. .- -\": "  + (morse_encode("cat") == "-.-. .- -").to_s
+    puts "morse_encode(\"cat in hat\") == \"-.-. .- -  .. -.  .... .- -\": "  + (morse_encode("cat in hat") == "-.-. .- -  .. -.  .... .- -").to_s
+
+puts("===============================================")
+
+# Catsylvanian money is a strange thing: they have a coin for every
+# denomination (including zero!). A wonky change machine in
+# Catsylvania takes any coin of value N and returns 3 new coins,
+# valued at N/2, N/3 and N/4 (rounding down).
+#
+# Write a method `wonky_coins(n)` that returns the number of coins you
+# are left with if you take all non-zero coins and keep feeding them
+# back into the machine until you are left with only zero-value coins.
+#
+# Difficulty: 3/5
+
+def wonky_coins(n)
+  return 1 if n == 0
+
+  # call wonky_coins from inside itself. This is called *recursion*.
+  return wonky_coins(n / 2) + wonky_coins(n / 3) + wonky_coins(n / 4)
+end
+
+
+puts("\nTests for #wonky_coins")
+puts("===============================================")
+    puts "wonky_coins(1) == 3: "  + (wonky_coins(1) == 3).to_s
+    puts "wonky_coins(5) == 11: "  + (wonky_coins(5) == 11).to_s
+    puts "wonky_coins(6) == 15: "  + (wonky_coins(6) == 15).to_s
+    puts "wonky_coins(0) == 1: "  + (wonky_coins(0) == 1).to_s
+puts("===============================================")
+
+# Write a method, `ordered_vowel_words(str)` that takes a string of
+# lowercase words and returns a string with just the words containing
+# all their vowels (excluding "y") in alphabetical order. Vowels may
+# be repeated (`"afoot"` is an ordered vowel word).
+#
+# You will probably want a helper method, `ordered_vowel_word?(word)`
+# which returns true/false if a word's vowels are ordered.
+#
+# Difficulty: 2/5
+
+def ordered_vowel_words(str)
+  words = str.split(" ")
+
+  ordered_vowel_words = words.select do |word|
+    ordered_vowel_word?(word)
+  end
+
+  ordered_vowel_words.join(" ")
+end
+
+def ordered_vowel_word?(word)
+  vowels = ["a", "e", "i", "o", "u"]
+
+  letters_arr = word.split("")
+  vowels_arr = letters_arr.select { |l| vowels.include?(l) }
+
+  (0...(vowels_arr.length - 1)).all? do |i|
+    vowels_arr[i] <= vowels_arr[i + 1]
+  end
+end
+
+puts("\nTests for #ordered_vowel_words")
+puts("===============================================")
+    puts "ordered_vowel_words(\"amends\") == \"amends\": "  + (ordered_vowel_words("amends") == "amends").to_s
+    puts "ordered_vowel_words(\"complicated\") == \"\": "  + (ordered_vowel_words("complicated") == "").to_s
+    puts "ordered_vowel_words(\"afoot\") == \"afoot\": "  + (ordered_vowel_words("afoot") == "afoot").to_s
+    puts "ordered_vowel_words(\"ham\") == \"ham\": "  + (ordered_vowel_words("ham") == "ham").to_s
+    puts "ordered_vowel_words(\"crypt\") == \"crypt\": "  + (ordered_vowel_words("crypt") == "crypt").to_s
+    puts "ordered_vowel_words(\"o\") == \"o\": "  + (ordered_vowel_words("o") == "o").to_s
+    puts "ordered_vowel_words(\"tamely\") == \"tamely\": "  + (ordered_vowel_words("tamely") == "tamely").to_s
+    
+    phrase = "this is a test of the vowel ordering system"
+    result = "this is a test of the system"
+    puts "ordered_vowel_words(phrase) == result: "  + (ordered_vowel_words(phrase) == result).to_s
+puts("===============================================")
+
+
+# Write a function, `letter_count(str)` that takes a string and
+# returns a hash mapping each letter to its frequency. Do not include
+# spaces.
+#
+# Difficulty: 1/5
+
+def letter_count(str)
+  counts = Hash.new(0)
+
+  str.each_char do |char|
+    counts[char] += 1 unless char == " "
+  end
+  counts
+end
+
+puts("\nTests for #letter_count")
+puts("===============================================")
+    puts "letter_count(\"cat\") == {\"c\" => 1, \"a\" => 1, \"t\" => 1}: "  + (letter_count("cat") == {"c" => 1, "a" => 1, "t" => 1}).to_s
+    puts "letter_count(\"moon\") == {\"m\" => 1, \"o\" => 2,\"n\" => 1}: "  + (letter_count("moon") == {"m" => 1, "o" => 2,"n" => 1}).to_s
+    puts "letter_count(\"cats are fun\") == {\"a\" => 2, \"c\" => 1, \"e\"=> 1, \"f\" => 1, \"n\" => 1, \"r\" => 1, \"s\" => 1, \"t\" => 1, \"u\" => 1}: "  + (letter_count("cats are fun") == {"a" => 2, "c" => 1, "e"=> 1, "f" => 1, "n" => 1, "r" => 1, "s" => 1, "t" => 1, "u" => 1}).to_s
+puts("===============================================")
+
+
+# Write a function, `no_repeats(year_start, year_end)`, which takes a
+# range of years and outputs those years which do not have any
+# repeated digits.
+#
+# You should probably write a helper function, `no_repeat?(year)` which
+# returns true/false if a single year doesn't have a repeat.
+#
+# Difficulty: 1/5
+
+def no_repeats(year_start, year_end)
+  no_repeats = []
+  (year_start..year_end).each do |yr|
+    no_repeats << yr if no_repeat?(yr)
+  end
+
+  no_repeats
+end
+
+def no_repeat?(year)
+  chars_seen = []
+  year.to_s.each_char do |char|
+    return false if chars_seen.include?(char)
+    chars_seen << char
+  end
+
+  return true
+end
+
+puts("\nTests for #no_repeats")
+puts("===============================================")
+    puts "no_repeats(1234, 1234) == [1234]: "  + (no_repeats(1234, 1234) == [1234]).to_s
+    puts "no_repeats(1123, 1123) == []: "  + (no_repeats(1123, 1123) == []).to_s
+    puts "no_repeats(1980, 1987) == [1980,1982,1983,1984,1985,1986,1987]: " + (no_repeats(1980, 1987) == [1980,1982,1983,1984,1985,1986,1987]).to_s
+puts("===============================================")
+
+# Write a function, `nearest_larger(arr, i)` which takes an array and an
+# index.  The function should return another index, `j`: this should
+# satisfy:
+#
+# (a) `arr[i] < arr[j]`, AND
+# (b) there is no `j2` closer to `i` than `j` where `arr[i] < arr[j2]`.
+#
+# In case of ties (see example below), choose the earliest (left-most)
+# of the two indices. If no number in `arr` is larger than `arr[i]`,
+# return `nil`.
+#
+# Difficulty: 2/5
+
+def nearest_larger(arr, idx)
+  diff = 1
+  while true
+    left = idx - diff
+    right = idx + diff
+
+    if (left >= 0) && (arr[left] > arr[idx])
+      return left
+    elsif (right < arr.length) && (arr[right] > arr[idx])
+      return right
+    elsif (left < 0) && (right >= arr.length)
+      return nil
+    end
+
+    diff += 1
+  end
+end
+
+puts("Tests for #nearest_larger")
+puts("===============================================")
+    puts "nearest_larger([2,3,4,8], 2) == 3: "  + (nearest_larger([2,3,4,8], 2) == 3).to_s
+    puts "nearest_larger([2,8,4,3], 2) == 1: "  + (nearest_larger([2,8,4,3], 2) == 1).to_s
+    puts "nearest_larger([2,6,4,8], 2) == 1: "  + (nearest_larger([2,6,4,8], 2) == 1).to_s
+    puts "nearest_larger([2,6,4,6], 2) == 1: "  + (nearest_larger([2,6,4,6], 2) == 1).to_s
+    puts "nearest_larger([8,2,4,3], 2) == 0: "  + (nearest_larger([8,2,4,3], 2) == 0).to_s
+    puts "nearest_larger([2,4,3,8], 1) == 3: "  + (nearest_larger([2,4,3,8], 1) == 3).to_s
+    puts "nearest_larger([2, 6, 4, 8], 3) == nil: "+ (nearest_larger([2, 6, 4, 8], 3) == nil).to_s
+    puts "nearest_larger([2, 6, 9, 4, 8], 3) == 2: "+ (nearest_larger([2, 6, 9, 4, 8], 3) == 2).to_s
+puts("===============================================")

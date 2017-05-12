@@ -5,4 +5,6 @@ puts integers.to_s
 
 nato = {:a => "alpha", :b => "bravo"}
 nato.map { |key, value| value.upcase }
-puts nato
+puts ("nato.map: " + nato.to_s)
+nato.map{ |key, value| value.upcase! }
+puts  ("nato.map { |key, value| value.upcase! } : " + nato.to_s)

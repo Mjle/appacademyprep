@@ -28,3 +28,18 @@ def translate(words)
  output.join(" ")
 
 end
+
+
+# def latinize(word)
+#   vowels = "aeiou"
+#   until vowels.include?(word[0].downcase)
+#     word = word[1..-1] + word[0]
+#   end
+#   word + "ay"
+# end
+
+# def pig_latin(sentence)
+#   words = sentence.split
+#   words.map! { |word| latinize(word) }
+#   words.join(" ")
+# end
